@@ -61,7 +61,7 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
             <h1 className="text-[15px] font-bold text-gray-900 sm:text-xl">
               공간임대 수익률 계산기
             </h1>
-            <p className="hidden text-sm text-gray-500 sm:block">
+            <p className="text-[10px] text-gray-400 sm:text-sm sm:text-gray-500">
               에어비앤비 &amp; 단기임대 투자 수익률 분석
             </p>
           </div>
