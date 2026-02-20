@@ -32,10 +32,24 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
 
   async function handleShare() {
     const url = window.location.href;
+    const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-    navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (isMobile && navigator.share) {
+      try {
+        await navigator.share({
+          title: "공간임대 수익률 계산기",
+          text: "에어비앤비 & 단기임대 수익률 분석 결과를 확인해보세요!",
+          url,
+        });
+        return;
+      } catch {
+        // 사용자가 공유 취소한 경우 — 무시
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   }
 
   return (
@@ -94,8 +108,8 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
           </div>
         </div>
 
-        {/* 모바일: 타이틀 아래 소셜+공유 */}
-        <div className="mt-1.5 flex items-center gap-1 sm:hidden">
+        {/* 모바일: 타이틀 아래 소셜+공유 (오른쪽 정렬) */}
+        <div className="mt-1.5 flex items-center justify-end gap-1.5 sm:hidden">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.name}
@@ -103,14 +117,14 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               title={link.name}
-              className="rounded-full p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+              className="rounded-full p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
             >
               {link.icon}
             </a>
           ))}
           <button
             onClick={handleShare}
-            className="rounded-md px-2 py-0.5 text-[11px] text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+            className="rounded-lg border border-gray-300 bg-white px-2.5 py-1 text-xs font-medium text-gray-500 transition hover:bg-gray-50 hover:text-gray-700"
           >
             {copied ? "복사됨!" : "공유하기"}
           </button>
