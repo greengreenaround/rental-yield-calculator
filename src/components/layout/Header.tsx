@@ -22,7 +22,7 @@ const SOCIAL_LINKS = [
     href: "https://www.threads.com/@hosu.air.swimming",
     icon: (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src="/threads-logo.png" alt="Threads" className="h-4 w-4" />
+      <img src="/threads-logo.png" alt="Threads" className="h-4 w-auto" />
     ),
   },
 ];
