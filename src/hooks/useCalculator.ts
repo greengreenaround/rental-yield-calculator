@@ -31,7 +31,9 @@ export function useCalculator() {
   useEffect(() => {
     if (!initializedRef.current) return;
     const params = encodeInputToParams(input);
-    const url = `${window.location.pathname}?${params}`;
+    const url = params
+      ? `${window.location.pathname}?${params}`
+      : window.location.pathname;
     window.history.replaceState(null, "", url);
   }, [input]);
 
