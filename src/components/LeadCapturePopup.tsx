@@ -18,7 +18,6 @@ export function LeadCapturePopup({
   onExternalClose,
 }: LeadCapturePopupProps) {
   const [autoOpen, setAutoOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", email: "", feedback: "" });
 
@@ -37,23 +36,16 @@ export function LeadCapturePopup({
     localStorage.setItem(STORAGE_KEY, "1");
   }
 
-  async function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(form),
-      });
+    // 즉시 완료 표시, 백그라운드로 전송
+    setIsSubmitted(true);
+    setTimeout(dismiss, 2000);
 
-      setIsSubmitted(true);
-      setTimeout(dismiss, 2000);
-    } catch {
-      alert("전송에 실패했습니다. 다시 시도해주세요.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    navigator.sendBeacon(
+      APPS_SCRIPT_URL,
+      new Blob([JSON.stringify(form)], { type: "application/json" }),
+    );
   }
 
   if (!isOpen) return null;
@@ -122,10 +114,9 @@ export function LeadCapturePopup({
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
+                className="w-full rounded-lg bg-blue-600 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
-                {isSubmitting ? "전송 중..." : "출시 소식 받기"}
+                출시 소식 받기
               </button>
             </form>
 
