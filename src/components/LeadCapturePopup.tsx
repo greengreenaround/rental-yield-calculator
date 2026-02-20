@@ -6,7 +6,7 @@ const STORAGE_KEY = "lead_popup_dismissed";
 const POPUP_DELAY_MS = 10_000;
 
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxD14XYXSygrqcLIEAeNOGQqSuldnvm6ztGAcghK25U8jI2fTwRKUX-HK_qq6NTIaY/exec";
+  "https://script.google.com/macros/s/AKfycby6tfO9WBNmibnl9SJdbLd0NG_kTrKPZoQPE3-YqQt5i-Pt8Ave_SwvYIK6EVU23_s/exec";
 
 interface LeadCapturePopupProps {
   externalOpen?: boolean;
