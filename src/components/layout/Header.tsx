@@ -52,6 +52,14 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
             </p>
           </div>
 
+          {/* 모바일: 사전등록만 타이틀 옆에 */}
+          <button
+            onClick={onOpenLeadForm}
+            className="shrink-0 rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700 sm:hidden"
+          >
+            사전등록
+          </button>
+
           {/* 데스크탑: 버튼 모두 여기에 */}
           <div className="hidden shrink-0 items-center gap-2 sm:flex">
             {SOCIAL_LINKS.map((link) => (
@@ -86,8 +94,8 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
           </div>
         </div>
 
-        {/* 모바일: 2번째 줄 */}
-        <div className="mt-2 flex items-center justify-end gap-1.5 sm:hidden">
+        {/* 모바일: 타이틀 아래 소셜+공유 */}
+        <div className="mt-1.5 flex items-center gap-1 sm:hidden">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.name}
@@ -95,22 +103,16 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               title={link.name}
-              className="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
+              className="rounded-full p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
             >
               {link.icon}
             </a>
           ))}
           <button
             onClick={handleShare}
-            className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50"
+            className="rounded-md px-2 py-0.5 text-[11px] text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
           >
             {copied ? "복사됨!" : "공유하기"}
-          </button>
-          <button
-            onClick={onOpenLeadForm}
-            className="rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700"
-          >
-            사전등록
           </button>
         </div>
       </div>
