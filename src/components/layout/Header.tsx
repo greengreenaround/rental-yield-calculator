@@ -33,21 +33,6 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
   async function handleShare() {
     const url = window.location.href;
 
-    // 모바일: 네이티브 공유 (카톡, 메시지 등 앱 선택)
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "공간임대 수익률 계산기",
-          text: "내 수익률 계산 결과를 확인해보세요!",
-          url,
-        });
-        return;
-      } catch {
-        // 사용자가 공유 취소한 경우 → 클립보드 복사로 fallback
-      }
-    }
-
-    // 데스크탑: 클립보드 복사
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -65,22 +50,7 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
           </p>
         </div>
 
-        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-          <button
-            onClick={handleShare}
-            title="현재 입력값 링크 복사"
-            className="relative rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 sm:p-2"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-4 w-4 sm:h-5 sm:w-5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 0 0-5.656 0l-4 4a4 4 0 1 0 5.656 5.656l1.102-1.101" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.172 13.828a4 4 0 0 0 5.656 0l4-4a4 4 0 0 0-5.656-5.656l-1.1 1.1" />
-            </svg>
-            {copied && (
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white">
-                복사됨!
-              </span>
-            )}
-          </button>
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.name}
@@ -88,14 +58,25 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               title={link.name}
-              className="hidden rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 sm:inline-flex"
+              className="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 sm:p-2"
             >
               {link.icon}
             </a>
           ))}
+          <div className="group relative">
+            <button
+              onClick={handleShare}
+              className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 sm:px-3 sm:text-sm"
+            >
+              {copied ? "복사됨!" : "공유하기"}
+            </button>
+            <div className="pointer-events-none absolute right-0 top-full z-20 mt-2 w-48 rounded-lg bg-gray-800 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+              수익률 계산 결과를 링크로 복사해서 공유하거나, 저장해두면 나중에 다시 확인할 수 있어요
+            </div>
+          </div>
           <button
             onClick={onOpenLeadForm}
-            className="ml-0.5 rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700 sm:ml-1 sm:px-3 sm:text-sm"
+            className="rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700 sm:px-3 sm:text-sm"
           >
             사전등록
           </button>
