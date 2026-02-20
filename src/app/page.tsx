@@ -2,8 +2,10 @@
 
 import { useCalculator } from "@/hooks/useCalculator";
 import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import { CalculatorForm } from "@/components/form/CalculatorForm";
 import { ResultsDashboard } from "@/components/results/ResultsDashboard";
+import { LeadCapturePopup } from "@/components/LeadCapturePopup";
 
 export default function HomePage() {
   const {
@@ -36,6 +38,8 @@ export default function HomePage() {
           </div>
         </div>
       </main>
+      <Footer />
+      <LeadCapturePopup />
     </div>
   );
 }
