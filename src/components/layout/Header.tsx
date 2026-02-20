@@ -81,7 +81,7 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
                 {copied ? "복사됨!" : "공유"}
               </button>
               <div className="pointer-events-none absolute right-0 top-full z-20 mt-2 hidden w-48 rounded-lg bg-gray-800 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 sm:block">
-                수익률 계산 결과를 링크로 복사해서 공유하거나, 저장해두면 나중에 다시 확인할 수 있어요
+                현재 입력한 계산 값이 링크에 저장돼요. 복사해서 공유하거나 나중에 다시 확인할 수 있어요
               </div>
             </div>
             <button
