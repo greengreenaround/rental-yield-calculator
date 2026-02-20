@@ -41,10 +41,11 @@ export function LeadCapturePopup({
     setIsSubmitted(true);
     setTimeout(dismiss, 2000);
 
-    // 백그라운드 전송 (await 없이 즉시 완료)
+    // 백그라운드 전송 (text/plain으로 preflight 회피)
     fetch(APPS_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
       body: JSON.stringify(form),
     });
   }
