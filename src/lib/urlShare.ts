@@ -59,44 +59,49 @@ const PLATFORM_LONG: Record<string, ManagementPlatform> = {
   c: "custom",
 };
 
-/** CalculatorInput → URL search params string */
+/** 기본값과 다른 값만 URL에 포함 (URL 길이 최소화) */
 export function encodeInputToParams(input: CalculatorInput): string {
   const p = new URLSearchParams();
+  const d = DEFAULT_INPUT;
 
-  p.set(KEYS.rentalType, RENTAL_TYPE_SHORT[input.rentalType]);
+  const set = (key: string, val: string, def: string) => {
+    if (val !== def) p.set(key, val);
+  };
+
+  set(KEYS.rentalType, RENTAL_TYPE_SHORT[input.rentalType], RENTAL_TYPE_SHORT[d.rentalType]);
 
   // investment
-  p.set(KEYS.securityDeposit, String(input.investment.securityDeposit));
-  p.set(KEYS.keyMoney, String(input.investment.keyMoney));
-  p.set(KEYS.interiorCost, String(input.investment.interiorCost));
+  set(KEYS.securityDeposit, String(input.investment.securityDeposit), String(d.investment.securityDeposit));
+  set(KEYS.keyMoney, String(input.investment.keyMoney), String(d.investment.keyMoney));
+  set(KEYS.interiorCost, String(input.investment.interiorCost), String(d.investment.interiorCost));
 
   // revenue
-  p.set(KEYS.weekdayRate, String(input.revenue.weekdayRate));
-  p.set(KEYS.weekdayOccupancy, String(input.revenue.weekdayOccupancy));
-  p.set(KEYS.weekendRate, String(input.revenue.weekendRate));
-  p.set(KEYS.weekendOccupancy, String(input.revenue.weekendOccupancy));
-  p.set(KEYS.ratePerUnit, String(input.revenue.ratePerUnit));
-  p.set(KEYS.expectedOccupancyPerMonth, String(input.revenue.expectedOccupancyPerMonth));
-  p.set(KEYS.extraGuestFee, String(input.revenue.extraGuestFee));
-  p.set(KEYS.averageExtraGuests, String(input.revenue.averageExtraGuests));
-  p.set(KEYS.extraGuestFrequency, String(input.revenue.extraGuestFrequency));
-  p.set(KEYS.operatingMonthsPerYear, String(input.revenue.operatingMonthsPerYear));
+  set(KEYS.weekdayRate, String(input.revenue.weekdayRate), String(d.revenue.weekdayRate));
+  set(KEYS.weekdayOccupancy, String(input.revenue.weekdayOccupancy), String(d.revenue.weekdayOccupancy));
+  set(KEYS.weekendRate, String(input.revenue.weekendRate), String(d.revenue.weekendRate));
+  set(KEYS.weekendOccupancy, String(input.revenue.weekendOccupancy), String(d.revenue.weekendOccupancy));
+  set(KEYS.ratePerUnit, String(input.revenue.ratePerUnit), String(d.revenue.ratePerUnit));
+  set(KEYS.expectedOccupancyPerMonth, String(input.revenue.expectedOccupancyPerMonth), String(d.revenue.expectedOccupancyPerMonth));
+  set(KEYS.extraGuestFee, String(input.revenue.extraGuestFee), String(d.revenue.extraGuestFee));
+  set(KEYS.averageExtraGuests, String(input.revenue.averageExtraGuests), String(d.revenue.averageExtraGuests));
+  set(KEYS.extraGuestFrequency, String(input.revenue.extraGuestFrequency), String(d.revenue.extraGuestFrequency));
+  set(KEYS.operatingMonthsPerYear, String(input.revenue.operatingMonthsPerYear), String(d.revenue.operatingMonthsPerYear));
 
   // platformFees
-  p.set(KEYS.airbnbFeeRate, String(input.platformFees.airbnbFeeRate));
-  p.set(KEYS.managementPlatform, PLATFORM_SHORT[input.platformFees.managementPlatform]);
-  p.set(KEYS.managementFeeRate, String(input.platformFees.managementFeeRate));
-  p.set(KEYS.shortTermFeeRate, String(input.platformFees.shortTermFeeRate));
+  set(KEYS.airbnbFeeRate, String(input.platformFees.airbnbFeeRate), String(d.platformFees.airbnbFeeRate));
+  set(KEYS.managementPlatform, PLATFORM_SHORT[input.platformFees.managementPlatform], PLATFORM_SHORT[d.platformFees.managementPlatform]);
+  set(KEYS.managementFeeRate, String(input.platformFees.managementFeeRate), String(d.platformFees.managementFeeRate));
+  set(KEYS.shortTermFeeRate, String(input.platformFees.shortTermFeeRate), String(d.platformFees.shortTermFeeRate));
 
   // operatingCosts
-  p.set(KEYS.monthlyRent, String(input.operatingCosts.monthlyRent));
-  p.set(KEYS.monthlyManagementFee, String(input.operatingCosts.monthlyManagementFee));
-  p.set(KEYS.cleaningCost, String(input.operatingCosts.cleaningCost));
-  p.set(KEYS.cleaningFrequencyPerMonth, String(input.operatingCosts.cleaningFrequencyPerMonth));
-  p.set(KEYS.taxRate, String(input.operatingCosts.taxRate));
-  p.set(KEYS.monthlyInsurance, String(input.operatingCosts.monthlyInsurance));
-  p.set(KEYS.monthlyMaintenance, String(input.operatingCosts.monthlyMaintenance));
-  p.set(KEYS.monthlyUtilities, String(input.operatingCosts.monthlyUtilities));
+  set(KEYS.monthlyRent, String(input.operatingCosts.monthlyRent), String(d.operatingCosts.monthlyRent));
+  set(KEYS.monthlyManagementFee, String(input.operatingCosts.monthlyManagementFee), String(d.operatingCosts.monthlyManagementFee));
+  set(KEYS.cleaningCost, String(input.operatingCosts.cleaningCost), String(d.operatingCosts.cleaningCost));
+  set(KEYS.cleaningFrequencyPerMonth, String(input.operatingCosts.cleaningFrequencyPerMonth), String(d.operatingCosts.cleaningFrequencyPerMonth));
+  set(KEYS.taxRate, String(input.operatingCosts.taxRate), String(d.operatingCosts.taxRate));
+  set(KEYS.monthlyInsurance, String(input.operatingCosts.monthlyInsurance), String(d.operatingCosts.monthlyInsurance));
+  set(KEYS.monthlyMaintenance, String(input.operatingCosts.monthlyMaintenance), String(d.operatingCosts.monthlyMaintenance));
+  set(KEYS.monthlyUtilities, String(input.operatingCosts.monthlyUtilities), String(d.operatingCosts.monthlyUtilities));
 
   return p.toString();
 }
@@ -105,8 +110,8 @@ export function encodeInputToParams(input: CalculatorInput): string {
 export function decodeParamsToInput(search: string): CalculatorInput | null {
   const p = new URLSearchParams(search);
 
-  // URL에 파라미터가 없으면 null 반환
-  if (!p.has(KEYS.rentalType)) return null;
+  // URL에 파라미터가 하나도 없으면 null 반환
+  if (p.size === 0) return null;
 
   const num = (key: string, fallback: number): number => {
     const v = p.get(key);
