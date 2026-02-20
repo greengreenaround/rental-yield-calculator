@@ -8,21 +8,32 @@ const POPUP_DELAY_MS = 10_000;
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxD14XYXSygrqcLIEAeNOGQqSuldnvm6ztGAcghK25U8jI2fTwRKUX-HK_qq6NTIaY/exec";
 
-export function LeadCapturePopup() {
-  const [isOpen, setIsOpen] = useState(false);
+interface LeadCapturePopupProps {
+  externalOpen?: boolean;
+  onExternalClose?: () => void;
+}
+
+export function LeadCapturePopup({
+  externalOpen,
+  onExternalClose,
+}: LeadCapturePopupProps) {
+  const [autoOpen, setAutoOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
 
+  const isOpen = autoOpen || externalOpen;
+
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY)) return;
 
-    const timer = setTimeout(() => setIsOpen(true), POPUP_DELAY_MS);
+    const timer = setTimeout(() => setAutoOpen(true), POPUP_DELAY_MS);
     return () => clearTimeout(timer);
   }, []);
 
   function dismiss() {
-    setIsOpen(false);
+    setAutoOpen(false);
+    onExternalClose?.();
     localStorage.setItem(STORAGE_KEY, "1");
   }
 

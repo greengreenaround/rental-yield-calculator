@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useCalculator } from "@/hooks/useCalculator";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -8,6 +9,7 @@ import { ResultsDashboard } from "@/components/results/ResultsDashboard";
 import { LeadCapturePopup } from "@/components/LeadCapturePopup";
 
 export default function HomePage() {
+  const [showLeadForm, setShowLeadForm] = useState(false);
   const {
     input,
     result,
@@ -20,7 +22,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header onOpenLeadForm={() => setShowLeadForm(true)} />
       <main className="mx-auto max-w-7xl px-4 py-6 lg:flex lg:gap-6">
         <div className="lg:w-[440px] lg:shrink-0">
           <CalculatorForm
@@ -39,7 +41,10 @@ export default function HomePage() {
         </div>
       </main>
       <Footer />
-      <LeadCapturePopup />
+      <LeadCapturePopup
+        externalOpen={showLeadForm}
+        onExternalClose={() => setShowLeadForm(false)}
+      />
     </div>
   );
 }
