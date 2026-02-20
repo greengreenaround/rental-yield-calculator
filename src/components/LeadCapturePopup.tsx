@@ -30,6 +30,14 @@ export function LeadCapturePopup({
     return () => clearTimeout(timer);
   }, []);
 
+  // 버튼으로 다시 열 때 폼 초기화
+  useEffect(() => {
+    if (externalOpen) {
+      setIsSubmitted(false);
+      setForm({ name: "", phone: "", email: "", feedback: "" });
+    }
+  }, [externalOpen]);
+
   function dismiss() {
     setAutoOpen(false);
     onExternalClose?.();
