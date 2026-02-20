@@ -5,7 +5,7 @@ import { useState } from "react";
 const SOCIAL_LINKS = [
   {
     name: "카카오톡",
-    href: "https://pf.kakao.com/_bjwIX/friend",
+    href: "http://pf.kakao.com/_bjwIX/chat",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 sm:h-5 sm:w-5">
         <path d="M12 3C6.48 3 2 6.58 2 10.9c0 2.78 1.86 5.21 4.65 6.6-.15.53-.96 3.41-1 3.56 0 .09.03.18.1.23a.26.26 0 0 0 .26.01c.35-.05 4.04-2.65 4.68-3.1.42.06.86.1 1.31.1 5.52 0 10-3.58 10-7.9S17.52 3 12 3z" />
