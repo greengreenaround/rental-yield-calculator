@@ -121,6 +121,6 @@ export const PLATFORM_PRESETS: Record<
 > = {
   none: { label: "직접 운영", rate: 0 },
   mrMention: { label: "미스터멘션", rate: 0.05 },
-  wehome: { label: "위홈", rate: 0.03 },
+  wehome: { label: "위홈", rate: 0.05 },
   custom: { label: "직접 입력", rate: 0 },
 };

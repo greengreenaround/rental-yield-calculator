@@ -85,7 +85,7 @@ export function RevenueSection({ rentalType, value, onChange }: Props) {
             tooltip="기본 인원 초과 시 1인당 추가 요금"
           />
           <InputField
-            label="평균 추가 인원"
+            label="평균 추가 인원 (기본 인원 제외)"
             value={value.averageExtraGuests}
             onChange={(v) => onChange({ averageExtraGuests: v })}
             suffix="명"
