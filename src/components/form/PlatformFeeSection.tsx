@@ -73,12 +73,22 @@ export function PlatformFeeSection({ rentalType, value, onChange }: Props) {
           ))}
         </div>
       </div>
-      {value.managementPlatform !== "none" && (
+      {value.managementPlatform === "custom" && (
         <PercentageInput
           label="대행 수수료율"
           value={value.managementFeeRate}
           onChange={(v) => onChange({ managementFeeRate: v })}
         />
+      )}
+      {value.managementPlatform !== "none" && (
+        <div className="rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500">
+          총 수수료: 에어비앤비 {(value.airbnbFeeRate * 100).toFixed(0)}% +{" "}
+          {PLATFORM_PRESETS[value.managementPlatform].label}{" "}
+          {(value.managementFeeRate * 100).toFixed(0)}% ={" "}
+          <span className="font-semibold text-gray-700">
+            {((value.airbnbFeeRate + value.managementFeeRate) * 100).toFixed(0)}%
+          </span>
+        </div>
       )}
     </SectionCard>
   );
