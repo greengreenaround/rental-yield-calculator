@@ -40,17 +40,54 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
 
   return (
     <header className="border-b bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 sm:px-4 sm:py-4">
-        <div className="min-w-0">
-          <h1 className="text-base font-bold text-gray-900 sm:text-xl">
-            공간임대 수익률 계산기
-          </h1>
-          <p className="hidden text-sm text-gray-500 sm:block">
-            에어비앤비 &amp; 단기임대 투자 수익률 분석
-          </p>
+      <div className="mx-auto max-w-7xl px-3 py-3 sm:px-4 sm:py-4">
+        {/* 모바일: 2단, 데스크탑: 1단 가로 */}
+        <div className="flex items-center justify-between">
+          <div className="min-w-0">
+            <h1 className="text-lg font-bold text-gray-900 sm:text-xl">
+              공간임대 수익률 계산기
+            </h1>
+            <p className="hidden text-sm text-gray-500 sm:block">
+              에어비앤비 &amp; 단기임대 투자 수익률 분석
+            </p>
+          </div>
+
+          {/* 데스크탑: 버튼 모두 여기에 */}
+          <div className="hidden shrink-0 items-center gap-2 sm:flex">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={link.name}
+                className="rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
+              >
+                {link.icon}
+              </a>
+            ))}
+            <div className="group relative">
+              <button
+                onClick={handleShare}
+                className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+              >
+                {copied ? "복사됨!" : "공유하기"}
+              </button>
+              <div className="pointer-events-none absolute right-0 top-full z-20 mt-2 w-48 rounded-lg bg-gray-800 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                수익률 계산 결과를 링크로 복사해서 공유하거나, 저장해두면 나중에 다시 확인할 수 있어요
+              </div>
+            </div>
+            <button
+              onClick={onOpenLeadForm}
+              className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
+              사전등록
+            </button>
+          </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+        {/* 모바일: 2번째 줄 */}
+        <div className="mt-2 flex items-center justify-end gap-1.5 sm:hidden">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.name}
@@ -58,25 +95,20 @@ export function Header({ onOpenLeadForm }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               title={link.name}
-              className="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 sm:p-2"
+              className="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
             >
               {link.icon}
             </a>
           ))}
-          <div className="group relative">
-            <button
-              onClick={handleShare}
-              className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 sm:px-3 sm:text-sm"
-            >
-              {copied ? "복사됨!" : "공유하기"}
-            </button>
-            <div className="pointer-events-none absolute right-0 top-full z-20 mt-2 w-48 rounded-lg bg-gray-800 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
-              수익률 계산 결과를 링크로 복사해서 공유하거나, 저장해두면 나중에 다시 확인할 수 있어요
-            </div>
-          </div>
+          <button
+            onClick={handleShare}
+            className="rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50"
+          >
+            {copied ? "복사됨!" : "공유하기"}
+          </button>
           <button
             onClick={onOpenLeadForm}
-            className="rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700 sm:px-3 sm:text-sm"
+            className="rounded-lg bg-blue-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700"
           >
             사전등록
           </button>
