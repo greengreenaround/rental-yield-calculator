@@ -38,14 +38,15 @@ export function LeadCapturePopup({
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    // 즉시 완료 표시, 백그라운드로 전송
     setIsSubmitted(true);
     setTimeout(dismiss, 2000);
 
-    navigator.sendBeacon(
-      APPS_SCRIPT_URL,
-      new Blob([JSON.stringify(form)], { type: "application/json" }),
-    );
+    // 백그라운드 전송 (await 없이 즉시 완료)
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(form),
+    });
   }
 
   if (!isOpen) return null;
