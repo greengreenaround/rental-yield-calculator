@@ -45,7 +45,7 @@ export function MetricCard({
 
   return (
     <div
-      className={`relative rounded-xl border p-4 shadow-sm transition-all duration-300 ${variantStyles[variant]} ${formula ? "cursor-pointer" : ""}`}
+      className={`relative rounded-xl border p-3 shadow-sm transition-all duration-300 sm:p-4 ${variantStyles[variant]} ${formula ? "cursor-pointer" : ""}`}
       onMouseEnter={() => formula && setShowFormula(true)}
       onMouseLeave={() => setShowFormula(false)}
     >
@@ -59,14 +59,14 @@ export function MetricCard({
         <div className="text-[10px] text-gray-400">{sublabel}</div>
       )}
       <div
-        className={`mt-1 font-bold ${size === "large" ? "text-2xl" : "text-xl"} ${valueStyles[variant]}`}
+        className={`mt-1 font-bold ${size === "large" ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} ${valueStyles[variant]}`}
       >
         {value}
       </div>
 
       {/* 호버 시 공식 표시 */}
       {formula && showFormula && (
-        <div className="absolute left-0 top-full z-20 mt-1 w-72 rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
+        <div className="absolute left-0 top-full z-20 mt-1 w-64 max-w-[calc(100vw-2rem)] rounded-lg border border-gray-200 bg-white p-3 shadow-lg sm:w-72">
           <div className="mb-2 text-[11px] font-semibold text-gray-700">
             {formula.expression}
           </div>

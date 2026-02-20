@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import type {
   CalculatorInput,
   CalculationResult,
@@ -12,9 +12,28 @@ import type {
 } from "@/types/calculator";
 import { calculateResults } from "@/lib/calculator";
 import { DEFAULT_INPUT, TYPE_DEFAULTS } from "@/lib/constants";
+import { decodeParamsToInput, encodeInputToParams } from "@/lib/urlShare";
 
 export function useCalculator() {
   const [input, setInput] = useState<CalculatorInput>(DEFAULT_INPUT);
+  const initializedRef = useRef(false);
+
+  // 마운트 후 URL 파라미터에서 초기값 읽기 (hydration 불일치 방지)
+  useEffect(() => {
+    const fromUrl = decodeParamsToInput(window.location.search);
+    if (fromUrl) {
+      setInput(fromUrl);
+    }
+    initializedRef.current = true;
+  }, []);
+
+  // 입력 변경 시 주소창 URL 업데이트
+  useEffect(() => {
+    if (!initializedRef.current) return;
+    const params = encodeInputToParams(input);
+    const url = `${window.location.pathname}?${params}`;
+    window.history.replaceState(null, "", url);
+  }, [input]);
 
   // 타입별 입력값 캐시 (탭 전환 시 사용자 입력 보존)
   const cacheRef = useRef<Partial<Record<RentalType, CalculatorInput>>>({

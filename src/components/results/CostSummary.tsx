@@ -74,21 +74,21 @@ export function CostSummary({ result }: Props) {
       </div>
 
       {/* 수익 vs 비용 요약 */}
-      <div className="mb-4 grid grid-cols-3 gap-2">
-        <div className="rounded-lg bg-blue-50 px-3 py-2">
+      <div className="mb-4 grid grid-cols-3 gap-1.5 sm:gap-2">
+        <div className="rounded-lg bg-blue-50 px-2 py-2 sm:px-3">
           <div className="text-[10px] text-blue-500">{suffix} 총수익</div>
-          <div className="text-sm font-bold text-blue-700">
+          <div className="text-xs font-bold text-blue-700 sm:text-sm">
             {formatCurrency(Math.round(totalRevenue))}원
           </div>
         </div>
-        <div className="rounded-lg bg-red-50 px-3 py-2">
+        <div className="rounded-lg bg-red-50 px-2 py-2 sm:px-3">
           <div className="text-[10px] text-red-400">{suffix} 총비용</div>
-          <div className="text-sm font-bold text-red-600">
+          <div className="text-xs font-bold text-red-600 sm:text-sm">
             {formatCurrency(Math.round(totalExpenses))}원
           </div>
         </div>
         <div
-          className={`rounded-lg px-3 py-2 ${netProfit >= 0 ? "bg-emerald-50" : "bg-red-50"}`}
+          className={`rounded-lg px-2 py-2 sm:px-3 ${netProfit >= 0 ? "bg-emerald-50" : "bg-red-50"}`}
         >
           <div
             className={`text-[10px] ${netProfit >= 0 ? "text-emerald-500" : "text-red-400"}`}
@@ -96,7 +96,7 @@ export function CostSummary({ result }: Props) {
             {suffix} 순수익
           </div>
           <div
-            className={`text-sm font-bold ${netProfit >= 0 ? "text-emerald-700" : "text-red-600"}`}
+            className={`text-xs font-bold sm:text-sm ${netProfit >= 0 ? "text-emerald-700" : "text-red-600"}`}
           >
             {netProfit >= 0 ? "+" : ""}
             {formatCurrency(Math.round(netProfit))}원
@@ -136,7 +136,7 @@ export function CostSummary({ result }: Props) {
               />
               <span className="flex-1 text-gray-600">{cost.name}</span>
               <span className="text-xs text-gray-400">{pct}%</span>
-              <span className="w-28 text-right font-medium text-gray-900">
+              <span className="text-right font-medium text-gray-900">
                 {formatCurrency(Math.round(value))}원
               </span>
             </div>
