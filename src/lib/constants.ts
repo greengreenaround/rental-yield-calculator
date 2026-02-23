@@ -9,7 +9,7 @@ export const DEFAULT_INPUT: CalculatorInput = {
   investment: {
     securityDeposit: 10_000_000,
     keyMoney: 0,
-    interiorCost: 15_000_000,
+    interiorCost: 20_000_000,
   },
   revenue: {
     weekdayRate: 90_000,
@@ -47,7 +47,7 @@ export const TYPE_DEFAULTS: Record<RentalType, Partial<CalculatorInput>> = {
     investment: {
       securityDeposit: 10_000_000,
       keyMoney: 0,
-      interiorCost: 15_000_000,
+      interiorCost: 20_000_000,
     },
     platformFees: {
       airbnbFeeRate: 0.03,
